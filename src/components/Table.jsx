@@ -2,8 +2,9 @@ import React, { useContext } from 'react';
 import myContext from '../context/myContext';
 
 function Table() {
-  const { data } = useContext(myContext);
-  console.log(data);
+  const { name, data } = useContext(myContext);
+  const filterName = data.filter((el) => el.name.includes(name));
+
   return (
 
     <table>
@@ -28,7 +29,7 @@ function Table() {
 
       <tbody>
 
-        {data && data.map((el) => (
+        {filterName && filterName.map((el) => (
           <tr key={ el.name }>
             <td>
               {el.name}
