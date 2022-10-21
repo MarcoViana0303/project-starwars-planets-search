@@ -3,7 +3,6 @@ import myContext from '../context/myContext';
 
 function Table() {
   const { name, data } = useContext(myContext);
-  const filterName = data.filter((el) => el.name.includes(name));
 
   return (
 
@@ -29,7 +28,9 @@ function Table() {
 
       <tbody>
 
-        {filterName && filterName.map((el) => (
+        { data.filter(
+          (el) => (el.name.toUpperCase().includes(name.toUpperCase())),
+        ).map((el) => (
           <tr key={ el.name }>
             <td>
               {el.name}
