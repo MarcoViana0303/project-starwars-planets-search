@@ -2,14 +2,18 @@ import React, { useEffect, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import myContext from './myContext';
 
+const arrayOption = ['population', 'orbital_period',
+  'diameter', 'rotation_period', 'surface_water'];
+
 function MyProvider({ children }) {
   const [data, setData] = useState([]);
   const [name, setName] = useState('');
-  const [column, setColumn] = useState('population');
   const [comparison, setComparison] = useState('maior que');
   const [valor, setValor] = useState('0');
   const [allFilter, setAllFilter] = useState([]);
   const [filtrando, setFiltrando] = useState(false);
+  const [selectFilter, setSelectFilter] = useState(arrayOption);
+  const [column, setColumn] = useState(selectFilter[0]);
 
   useEffect(() => {
     const responseAPI = async () => {
@@ -62,6 +66,9 @@ function MyProvider({ children }) {
   const handleButton = () => {
     setAllFilter([...allFilter, { column, comparison, valor }]);
     setFiltrando(true);
+    const newFilter = selectFilter.filter((el) => column !== el);
+    setSelectFilter(newFilter);
+    setColumn(newFilter[0]);
   };
 
   const contexto = useMemo(() => ({
@@ -76,8 +83,10 @@ function MyProvider({ children }) {
     handleComparison,
     handleButton,
     allFilter,
+    selectFilter,
   }), [data, name, valor, column, comparison,
-    handleChange, handleValue, handleColumn, handleComparison, handleButton, allFilter]);
+    handleChange, handleValue, handleColumn, handleComparison,
+    handleButton, allFilter, selectFilter]);
 
   return (
     <myContext.Provider value={ contexto }>
