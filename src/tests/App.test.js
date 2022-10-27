@@ -1,9 +1,61 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { findByText, render, screen } from '@testing-library/react';
 import App from '../App';
+import userEvent from '@testing-library/user-event';
+import mockData from './utils/mockData';
 
-test('I am your test', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/Hello, App!/i);
-  expect(linkElement).toBeInTheDocument();
-});
+
+// Ajuda do Queones Queonias
+describe('Testando se tudo na página está funcionando corretamente', () => {
+    afterEach(() => jest.clearAllMocks())
+
+    test('Verificando a rota e os elementos html', () => {
+       render(<App />);
+       const columnFilter = screen.getByTestId('column-filter');
+       userEvent.selectOptions(columnFilter, 'orbital_period');
+        
+    
+       
+        expect(columnFilter).toHaveValue('orbital_period');
+    
+      
+    });
+    test('Verificando os selects', async () => {
+     /* jest.spyOn(global, 'fetch');
+     global.fetch.mockResolvedValue({
+         json: jest.fn().mockResolvedValue(...mockData),
+        })  */
+     jest.spyOn(global, 'fetch').mockImplementation(async () => ({ json: async () => mockData }));
+        render(<App />)
+        const tatooine = await screen.findByText('Tatooine')
+        expect(tatooine).toBeInTheDocument();
+
+        const columnFilter = screen.getByTestId('column-filter');
+        expect(columnFilter).toBeInTheDocument();
+        userEvent.selectOptions(columnFilter, 'diameter')
+        expect(columnFilter).toHaveValue('diameter')
+
+        const comparisonFilter = screen.getByTestId('comparison-filter');
+        expect(comparisonFilter).toBeInTheDocument();
+        userEvent.selectOptions(comparisonFilter, 'igual a')
+        expect(comparisonFilter).toHaveValue('igual a')
+        
+        const valueFilter = screen.getByTestId('value-filter');
+        expect(valueFilter).toBeInTheDocument();
+        userEvent.type(valueFilter, '7200');
+
+        const nameFilter = screen.getByTestId('name-filter');
+        userEvent.type(nameFilter,'Tatooine');
+
+       const buttonFilter = screen.getByRole('button', {
+            name: /filtrar/i
+          })
+          expect(buttonFilter).toBeInTheDocument();
+          userEvent.click(buttonFilter);
+
+        expect(tatooine).not.toBeInTheDocument();
+        expect(global.fetch).toHaveBeenCalled();
+       expect(nameFilter).toBeInTheDocument() 
+       expect(nameFilter).toHaveValue('Tatooine')
+    });
+})

@@ -14,6 +14,7 @@ function MyProvider({ children }) {
   const [filtrando, setFiltrando] = useState(false);
   const [selectFilter, setSelectFilter] = useState(arrayOption);
   const [column, setColumn] = useState(selectFilter[0]);
+  const [order, setOrder] = useState(selectFilter[0]);
 
   useEffect(() => {
     const responseAPI = async () => {
@@ -63,12 +64,34 @@ function MyProvider({ children }) {
     setValor(value);
   };
 
+  const handleOrder = ({ target: { value } }) => {
+    setOrder(value);
+  };
+
   const handleButton = () => {
     setAllFilter([...allFilter, { column, comparison, valor }]);
     setFiltrando(true);
     const newFilter = selectFilter.filter((el) => column !== el);
     setSelectFilter(newFilter);
     setColumn(newFilter[0]);
+  };
+
+  const clickOrder = () => {
+    /* console.log('botão funcionando');
+    const example = arrayOption.sort();
+    console.log(example); */
+  /*   const magicNumber = -1;
+    const example = data.sort((a, b) => {
+      if (a.name > b.name) {
+        return 1;
+      }
+      if (a.name < b.name) {
+        return magicNumber;
+      }
+
+      return 0;
+    }); */
+    console.log(example);
   };
 
   const contexto = useMemo(() => ({
@@ -82,11 +105,15 @@ function MyProvider({ children }) {
     handleColumn,
     handleComparison,
     handleButton,
+    clickOrder,
     allFilter,
     selectFilter,
+    order,
+    handleOrder,
   }), [data, name, valor, column, comparison,
     handleChange, handleValue, handleColumn, handleComparison,
-    handleButton, allFilter, selectFilter]);
+    handleButton, clickOrder, allFilter, selectFilter, order,
+    handleOrder]);
 
   return (
     <myContext.Provider value={ contexto }>

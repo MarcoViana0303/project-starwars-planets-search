@@ -3,7 +3,8 @@ import myContext from '../context/myContext';
 
 function Forms() {
   const { handleChange, name, comparison, valor, column, handleComparison,
-    handleValue, handleColumn, handleButton, selectFilter } = useContext(myContext);
+    handleValue, handleColumn, handleButton,
+    selectFilter, clickOrder, handleOrder } = useContext(myContext);
   return (
     <form>
       <label htmlFor="name">
@@ -52,6 +53,43 @@ function Forms() {
         data-testid="button-filter"
       >
         Filtrar
+
+      </button>
+
+      <label htmlFor="sort">
+        Ordenar
+        <select data-testid="column-sort" id="sort" onChange={ handleOrder }>
+
+          {selectFilter.map((el) => (
+            <option key={ el } value={ el }>{el}</option>
+          ))}
+
+        </select>
+      </label>
+      <label htmlFor="ASC">
+        ASC
+        <input
+          type="radio"
+          name="order"
+          data-testid="column-sort-input-asc"
+          value="ASC"
+          id="ASC"
+        />
+        DESC
+        <input
+          type="radio"
+          name="order"
+          data-testid="column-sort-input-desc"
+          value="ASC"
+          id="DESC"
+        />
+      </label>
+      <button
+        data-testid="column-sort-button"
+        type="button"
+        onClick={ clickOrder }
+      >
+        Ordenar
 
       </button>
 
