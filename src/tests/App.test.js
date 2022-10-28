@@ -58,4 +58,58 @@ describe('Testando se tudo na página está funcionando corretamente', () => {
        expect(nameFilter).toBeInTheDocument() 
        expect(nameFilter).toHaveValue('Tatooine')
     });
+    test('Testa menor que', async () => {
+      jest.spyOn(global, 'fetch').mockImplementation(async () => ({ json: async () => mockData }));
+
+      render(<App />);
+      const tatooine = await screen.findByText('Tatooine')
+      expect(tatooine).toBeInTheDocument();
+
+      const columnFilter = screen.getByTestId('column-filter');
+      userEvent.selectOptions(columnFilter, 'diameter');
+
+      const comparisonFilter = screen.getByTestId('comparison-filter');
+      userEvent.selectOptions(comparisonFilter, 'menor que');
+
+      const valueFilter = screen.getByTestId('value-filter');
+      userEvent.type(valueFilter, '5000');
+
+      const buttonFilter = screen.getByRole('button', {
+        name: /filtrar/i
+      })
+      userEvent.click(buttonFilter);
+
+      expect(tatooine).not.toBeInTheDocument();
+        expect(global.fetch).toHaveBeenCalled();
+     
+
+     
+    });
+    test('Testa maior que', async () => {
+      jest.spyOn(global, 'fetch').mockImplementation(async () => ({ json: async () => mockData }));
+
+      render(<App />);
+      const tatooine = await screen.findByText('Yavin IV')
+      expect(tatooine).toBeInTheDocument();
+
+      const columnFilter = screen.getByTestId('column-filter');
+      userEvent.selectOptions(columnFilter, 'population');
+
+      const comparisonFilter = screen.getByTestId('comparison-filter');
+      userEvent.selectOptions(comparisonFilter, 'maior que');
+
+      const valueFilter = screen.getByTestId('value-filter');
+      userEvent.type(valueFilter, '5000');
+
+      const buttonFilter = screen.getByRole('button', {
+        name: /filtrar/i
+      })
+      userEvent.click(buttonFilter);
+
+      expect(tatooine).not.toBeInTheDocument();
+        expect(global.fetch).toHaveBeenCalled();
+     
+
+     
+    });
 })
