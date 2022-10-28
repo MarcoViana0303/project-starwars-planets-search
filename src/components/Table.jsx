@@ -32,7 +32,7 @@ function Table() {
           (el) => (el.name.toUpperCase().includes(name.toUpperCase())),
         ).map((el) => (
           <tr key={ el.name }>
-            <td>
+            <td data-testid="planet-name">
               {el.name}
             </td>
             <td>

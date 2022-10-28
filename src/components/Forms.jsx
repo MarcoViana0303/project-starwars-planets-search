@@ -4,7 +4,7 @@ import myContext from '../context/myContext';
 function Forms() {
   const { handleChange, name, comparison, valor, column, handleComparison,
     handleValue, handleColumn, handleButton,
-    selectFilter, clickOrder, handleOrder } = useContext(myContext);
+    selectFilter, clickOrder, handleOrder, setRadio } = useContext(myContext);
   return (
     <form>
       <label htmlFor="name">
@@ -74,14 +74,17 @@ function Forms() {
           data-testid="column-sort-input-asc"
           value="ASC"
           id="ASC"
+          onChange={ (ev) => setRadio(ev.target.value) }
         />
+
         DESC
         <input
           type="radio"
           name="order"
           data-testid="column-sort-input-desc"
-          value="ASC"
+          value="DESC"
           id="DESC"
+          onChange={ (ev) => setRadio(ev.target.value) }
         />
       </label>
       <button

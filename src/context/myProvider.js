@@ -15,6 +15,7 @@ function MyProvider({ children }) {
   const [selectFilter, setSelectFilter] = useState(arrayOption);
   const [column, setColumn] = useState(selectFilter[0]);
   const [order, setOrder] = useState(selectFilter[0]);
+  const [radio, setRadio] = useState('');
 
   useEffect(() => {
     const responseAPI = async () => {
@@ -77,21 +78,19 @@ function MyProvider({ children }) {
   };
 
   const clickOrder = () => {
-    /* console.log('botão funcionando');
-    const example = arrayOption.sort();
-    console.log(example); */
-  /*   const magicNumber = -1;
-    const example = data.sort((a, b) => {
-      if (a.name > b.name) {
-        return 1;
-      }
-      if (a.name < b.name) {
-        return magicNumber;
-      }
-
-      return 0;
-    }); */
-    console.log(example);
+    if (radio === 'ASC') {
+      const dataSort = data.filter((el) => el[order] !== 'unknown')
+        .sort((a, b) => +(a[order]) - +(b[order]));
+      const unknown = data.filter((el) => el[order] === 'unknown');
+      const unknownData = [...dataSort, ...unknown];
+      setData(unknownData);
+    } else {
+      const dataSort = data.filter((el) => el[order] !== 'unknown')
+        .sort((a, b) => +(b[order]) - +(a[order]));
+      const unknown = data.filter((el) => el[order] === 'unknown');
+      const unknownData = [...dataSort, ...unknown];
+      setData(unknownData);
+    }
   };
 
   const contexto = useMemo(() => ({
@@ -110,10 +109,11 @@ function MyProvider({ children }) {
     selectFilter,
     order,
     handleOrder,
+    setRadio,
   }), [data, name, valor, column, comparison,
     handleChange, handleValue, handleColumn, handleComparison,
-    handleButton, clickOrder, allFilter, selectFilter, order,
-    handleOrder]);
+    handleButton, allFilter, selectFilter, order,
+    handleOrder, setRadio]);
 
   return (
     <myContext.Provider value={ contexto }>
