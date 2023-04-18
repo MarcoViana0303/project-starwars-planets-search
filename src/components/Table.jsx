@@ -6,7 +6,7 @@ function Table() {
 
   return (
 
-    <table>
+    <table className='table-planet'>
       <thead>
         <tr>
           <th>name</th>

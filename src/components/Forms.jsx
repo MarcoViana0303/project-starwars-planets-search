@@ -6,7 +6,9 @@ function Forms() {
     handleValue, handleColumn, handleButton,
     selectFilter, clickOrder, handleOrder, setRadio } = useContext(myContext);
   return (
-    <form>
+    <form className='form-input'>
+
+      <img src={ require('../photos/star-wars-logo-3-1.png')} alt="Star Wars" className='starwars-logo'/>
       <label htmlFor="name">
         Digite o nome
         <input
@@ -15,6 +17,7 @@ function Forms() {
           id="name"
           value={ name }
           onChange={ handleChange }
+          className='form-element'
         />
       </label>
 
@@ -23,6 +26,7 @@ function Forms() {
         name=""
         value={ column }
         onChange={ handleColumn }
+        className='form-element'
       >
         {selectFilter.map((el) => (
           <option key={ el } value={ el }>{el}</option>
@@ -35,6 +39,7 @@ function Forms() {
         name=""
         value={ comparison }
         onChange={ handleComparison }
+        className='form-element'
       >
         <option value="maior que">maior que</option>
         <option value="menor que">menor que</option>
@@ -46,19 +51,21 @@ function Forms() {
         value={ valor }
         onChange={ handleValue }
         data-testid="value-filter"
+        className='form-element'
       />
       <button
         type="button"
         onClick={ handleButton }
         data-testid="button-filter"
+        className='form-element'
       >
         Filtrar
 
       </button>
 
       <label htmlFor="sort">
-        Ordenar
-        <select data-testid="column-sort" id="sort" onChange={ handleOrder }>
+        Ordenar por:
+        <select data-testid="column-sort" id="sort" onChange={ handleOrder }   className='form-element'>
 
           {selectFilter.map((el) => (
             <option key={ el } value={ el }>{el}</option>
@@ -66,7 +73,7 @@ function Forms() {
 
         </select>
       </label>
-      <label htmlFor="ASC">
+      <label htmlFor="ASC" className='label-radio'>
         ASC
         <input
           type="radio"
@@ -75,6 +82,7 @@ function Forms() {
           value="ASC"
           id="ASC"
           onChange={ (ev) => setRadio(ev.target.value) }
+          className='form-element'
         />
 
         DESC
@@ -84,6 +92,7 @@ function Forms() {
           data-testid="column-sort-input-desc"
           value="DESC"
           id="DESC"
+          className='form-element'
           onChange={ (ev) => setRadio(ev.target.value) }
         />
       </label>
@@ -91,6 +100,7 @@ function Forms() {
         data-testid="column-sort-button"
         type="button"
         onClick={ clickOrder }
+        className='form-element'
       >
         Ordenar
 

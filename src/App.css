@@ -1,3 +1,9 @@
+body {
+  background-image: url('./photos/star-wars.avif');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 .App {
   text-align: center;
 }
@@ -39,3 +45,98 @@
     transform: rotate(360deg);
   }
 }
+/* Estilização do formulário*/
+.starwars-logo {
+  height: 100px;
+  position: absolute;
+  margin-bottom: 250px;
+}
+
+.form-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  margin-top: 200px;
+}
+
+.form-element {
+  height: 30px;
+  border-radius: 30px;
+  margin-right: 10px;
+}
+
+label {
+  font-size: 20px;
+}
+
+.label-radio {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+}
+
+/* Estilização da tabela */
+.table-planet {
+  max-width: 100%;
+  width: 100%;
+  table-layout: fixed;
+  white-space: nowrap;
+  overflow: hidden;
+  color: white;
+  border-collapse: separate;
+  border-spacing: 10px;
+  border: 2px solid #ccc;
+  padding: 10px;
+  transition: border-color 0.5s ease;
+  margin-top: 80px;
+}
+
+th, td {
+  border: 1px solid white;
+  padding: 8px;
+  text-align: center;
+  font-weight: 800;
+}
+
+th {
+  background-color: #f2f2f2;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  word-break: break-all;
+  color: black;
+}
+
+td {
+  min-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* Estilizando com várias cores, as <th> da tabela */
+.table-planet:hover {
+  animation: rainbow 10s infinite;
+}
+
+@keyframes rainbow {
+  0% {
+    border-color: blue;
+  }
+  16.6% {
+    border-color: #8b0000;
+  }
+  33.3% {
+    border-color: green;
+  }
+
+  50% {
+    border-color: purple;
+  }
+  66.6% {
+    border-color: orange;
+  }
+  83.3% {
+    border-color: blue;
+  }
+}
+
