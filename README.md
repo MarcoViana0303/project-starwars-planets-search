@@ -46,7 +46,7 @@ Inicie o servidor
 [Saiba mais sobre Context API](https://legacy.reactjs.org/docs/context.html)
 
 
-## Screenshots
+## Ilustração do projeto
 
 ![Projeto Star Wars](./projeto-star-wars.png)
 
